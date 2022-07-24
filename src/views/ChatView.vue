@@ -1,5 +1,12 @@
 <template>
-
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/demo">Demo</router-link>
+  </nav>
+  <div class="demo">
+    <h1>This is an demo page</h1>
+  </div>
 </template>
 
 <script>
@@ -8,6 +15,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+nav {
+  padding: 30px;
+}
 
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
 </style>
