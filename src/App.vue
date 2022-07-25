@@ -24,5 +24,11 @@ export default {
   color: #2c3e50;
 }
 
+body,html{
+  height: 100%;
+  width: 100%;
+  margin:0 0 0 0;
+  overflow:hidden hidden;
+}
 
 </style>
