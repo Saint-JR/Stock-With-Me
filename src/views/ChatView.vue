@@ -2,6 +2,21 @@
   <div style="width: 100%;height: 100%;position: absolute;">
 	<img src="../assets/chat.jpg" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;"/>
 	<div style="position: absolute;width: 100%;height: 100%;display: flex;justify-content: center;">
+    <div style="position: absolute; right: 60px; top: 8px;">
+      <el-popover
+          placement="bottom"
+          title="Click"
+          :width="200"
+          trigger="hover"
+          content="You can talk with us to evaluate your risk"
+      >
+        <template #reference>
+          <el-button type="success" @click="forward" class="forward">
+            <el-icon><ArrowRightBold /></el-icon>
+          </el-button>
+        </template>
+      </el-popover>
+    </div>
 		<div style="width: 40%;height: 100%;position: relative;">
 			<div style="overflow-y: auto;bottom: 120px;top: 0;width: 100%;position: absolute;
 			background-color: rgba(255,255,255,0.9);">
@@ -46,7 +61,7 @@
 					font-size: 30px;border: none;outline: none;"/>
 				</div>
 				<div style="width: 100px;height: 50px;border-radius: 20px;background-color: #efc21a;
-				display: flex;justify-content: center;align-items:center;font-size: 22px;font-weight: 700;">发送</div>
+				display: flex;justify-content: center;align-items:center;font-size: 22px;font-weight: 700;">Send</div>
 			</div>
 		</div>
 	</div>
@@ -55,12 +70,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 //没法和后端测
 import {ref} from 'vue'
-export default {
-  name: "ChatView",
-  setup(){
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+
 	let messages=ref([
 		{
 			isFromMe:true,
@@ -102,13 +118,15 @@ export default {
 			isFromMe:false,
 			text:"111111111111111111111111111111111111111111111111111111111111111111111"
 		}
-		
-	]);
-	return{
-		messages,
-	}
-  },
+  ])
+function forward() {
+  //没有状态 vuex 不能 backward 。。。。
+  router.push({
+    path: "/"
+  })
 }
+
+
 </script>
 
 <style>
