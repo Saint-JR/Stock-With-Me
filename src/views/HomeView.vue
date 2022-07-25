@@ -34,6 +34,13 @@ export default {
 body{
   margin: 0;
 }
+.common-layout{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*background-color: #000;*/
+}
+/*logo*/
 .logo{
   width: 30%;
   height: auto;
@@ -45,8 +52,10 @@ body{
 }
 
 .container-nav{
-  /*background-color: #E6E8EB;*/
+  /*background-color: #000;*/
   /*border-color: #E6E8EB;*/
+  width: 100%;
+  height: 100%;
   display: flex;
   margin: 0;
 }
@@ -59,7 +68,7 @@ body{
 }
 
 .main-nav{
-  height: 600px;
+  height: 700px;
 }
 
 .search-nav{

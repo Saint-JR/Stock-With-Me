@@ -1,7 +1,7 @@
 <template>
   <el-input @change="ischange" v-model="input" placeholder="Please input ...">
     <template #append>
-      <el-button type="primary" @click="buildconn" @keyup.enter="buildconn">Search
+      <el-button type="primary" @click="buildconn" >Search
         <el-icon class="el-icon--right">
         <Search />
       </el-icon>

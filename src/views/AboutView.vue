@@ -6,14 +6,27 @@
         <div class="search">
           <component :is="SearchInPut"/>
         </div>
+        <el-popover
+            placement="bottom"
+            title="Click"
+            :width="200"
+            trigger="hover"
+            content="You can talk with us to evaluate your risk"
+        >
+          <template #reference>
         <el-button type="success" @click="forward" class="forward">
           <el-icon><ArrowRightBold /></el-icon>
         </el-button>
+          </template>
+        </el-popover>
       </el-header>
       <el-main class="main-nav" @click="update">
         <!-- 情感分析 -->
+        <!-- title -->
         <el-row justify="center">
-          <!-- title -->
+          <div>there is title</div>
+        </el-row>
+        <el-row justify="center">
           <!-- process -->
           <div class="analyze">
             <el-progress type="circle" indeterminate=true :percentage=positive  color=" #95d475">
@@ -35,19 +48,27 @@
               </template>
             </el-progress>
           </div>
-          <!-- describe -->
-
         </el-row>
-        <!-- 内容摘要 -->
+        <!-- world crowd-->
         <el-row justify="center">
-          <div class="content">
-
-          </div>
+          <div>there is world crowd</div>
         </el-row>
+        <!-- describe -->
+        <el-row justify="center">
+          <div>describe</div>
+        </el-row>
+        <el-divider />
         <!-- 股票走势 -->
         <el-row justify="center">
           <div class = "stocktrend">
-
+            三个按钮  + 图片
+          </div>
+        </el-row>
+        <el-divider />
+        <!-- 内容摘要 -->
+        <el-row justify="center">
+          <div class="content">
+            <component :list=data.news :is="NewsList"></component>
           </div>
         </el-row>
       </el-main>
@@ -60,6 +81,7 @@
 <script setup>
 import {useRoute, useRouter} from "vue-router";
 import SearchInPut from '@/components/SearchIuPut.vue'
+import NewsList from '@/components/NewsList.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -103,6 +125,7 @@ body{
   margin-top: 10px;
   font-size: 20px;
 }
+
 .percentage-label {
   display: block;
   margin-top: 10px;
@@ -110,17 +133,16 @@ body{
 }
 
 .analyze{
-  height: 600px;
   padding: 20px;
 }
 
 .content{
+  width: 80%;
   height: 600px;
   padding: 20px;
 }
 
 .stocktrend{
-  height: 600px;
   padding: 20px;
 }
 
@@ -128,7 +150,7 @@ body{
   width: 30%;
   height: auto;
   position: absolute;
-  left: 40%;
+  left: 35%;
   top:8px;
 }
 
