@@ -73,7 +73,7 @@
 				<div style="width: 70%;height: 70px;border-radius: 20px;background-color: #FFFFFF;
 				display: flex;justify-content: center;align-items:center;">
 					<input style="width: 90%;height: 50px;
-					font-size: 30px;border: none;outline: none;" v-model="msg"/>
+					font-size: 30px;border: none;outline: none;" v-model="msg" @keydown="ischange" @keyup.enter="send"/>
 				</div>
 				<div style="width: 100px;height: 50px;border-radius: 20px;background-color: #efc21a;
 				display: flex;justify-content: center;align-items:center;font-size: 22px;font-weight: 700;" @click="send">Send</div>
@@ -93,6 +93,7 @@ const socket = inject('socket')
 const router = useRouter()
 
 const msg = ref('')
+let change = false
 
 let messages=ref([
   {
@@ -100,10 +101,19 @@ let messages=ref([
     text: "One of the hardest things for any financial planner to come to grips with is a client’s risk tolerance. As an investment planner, \nit is your job to translate subjective feelings into something more objective that can be used to guide the construction of an investment portfolio. Unfortunately, there is \nno standard measurement or method of assessing a client’s risk tolerance. \nA wide variety of descriptive or quantitative questionnaires are available, and you have to choose a method that works best for you.\n"}
   ])
 
+function ischange(){
+  if(msg.value!==''){
+    change = true;
+  }
+  else change=false;
+}
+
 function send(){
-  socket.emit("get_msg", msg.value)
-  messages.value.push({isFromMe: true, text: msg.value})
-  msg.value=''
+  if(change){
+    socket.emit("get_msg", msg.value)
+    messages.value.push({isFromMe: true, text: msg.value})
+    msg.value=''
+  }
 }
 
 socket.on("post_msg", (response)=>{

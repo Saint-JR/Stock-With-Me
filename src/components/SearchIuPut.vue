@@ -14,7 +14,7 @@
     <input style="width: 500px;position: absolute;height: 70px;top: 15px;font-size: 30px;border: none;outline: none; // 去除选中状态边框
         background-color: rgba(0, 0, 0, 0);transition: all .5s ease-in-out;"
            placeholder="Please input ..." @focus="focus" @blur="blur" :style="{'left':textLeft+'px'}"
-           v-model="input" @keydown="ischange()" @keyup.enter="buildconn"/>
+           v-model="input" @keydown="ischange" @keyup.enter="buildconn"/>
     <div style="height: 70px;position: absolute;top: 15px;width: 70px;border-radius: 35px;background-color: #efc21a;
 	display: flex;justify-content: center;align-items: center;transition: all .5s ease-in-out;" :style="{'left':searchLeft+'px'}"
          @click="buildconn">
@@ -77,7 +77,7 @@ socket.on("connect", () => {
 //   console.log('get data')
 // })
 function ischange(){
-  if(input.value!=''){
+  if(input.value!==''){
     change = true;
   }
   else change=false;
