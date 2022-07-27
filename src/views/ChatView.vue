@@ -2,6 +2,7 @@
   <div style="width: 100%;height: 100%;position: absolute;">
 	<img src="../assets/chat.jpg" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;"/>
 	<div style="position: absolute;width: 100%;height: 100%;display: flex;justify-content: center;">
+    <img src="../assets/logo20.png" alt="logo" style="width: 30%; height: auto; display: block; position: absolute; left: 0; top: 0; margin: 0;">
     <div style="position: absolute; right: 60px; top: 8px;">
       <el-popover
           placement="bottom"
