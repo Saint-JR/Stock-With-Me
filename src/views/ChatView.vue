@@ -2,7 +2,7 @@
   <div style="width: 100%;height: 100%;position: absolute;">
 	<img src="../assets/chat.jpg" style="height: 100%;width: 100%;position: absolute;top: 0;left: 0;"/>
 	<div style="position: absolute;width: 100%;height: 100%;display: flex;justify-content: center;">
-    <img src="../assets/logo20.png" alt="logo" style="width: 30%; height: auto; display: block; position: absolute; left: 0; top: 0; margin: 0;">
+    <img src="../assets/logo20.png" alt="logo" style="width: 30%; height: auto; display: block; position: absolute; left: 0; top: 0; margin: 0;" @click="gotohome">
     <div style="position: absolute; right: 60px; top: 8px;">
       <el-popover
           placement="bottom"
@@ -103,6 +103,11 @@ let messages=ref([
     text: "Hello, I'm a robot. You can tell something with me. And if you want to assess your risk tolerance in finance, please input \"assessment\"."}
   ])
 
+function gotohome(){
+  router.push({
+    name:"home"
+  })
+}
 function ischange(){
   if(msg.value!==''){
     change = true;

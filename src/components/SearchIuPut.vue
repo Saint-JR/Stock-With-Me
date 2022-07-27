@@ -28,7 +28,7 @@
 
 
 import { Search } from '@element-plus/icons-vue'
-import {ref, defineEmits,inject} from'vue'
+import {ref, defineEmits, inject} from 'vue'
 import {useRouter} from 'vue-router'
 
 // 定义emit事件
@@ -61,7 +61,6 @@ const router = useRouter()
 
 socket.on("connect", () => {
   console.log(socket.id);
-
 });
 
 
@@ -82,21 +81,22 @@ function ischange(){
   }
   else change=false;
 }
+
 function buildconn() {
   console.log(input.value)
   if(change){
-    socket.emit("require_stock", input.value, () => {
-      //console.log(response)
-      socket.on('response_stock', (response) => {
-        console.log(response)
-        //页面跳转
-        router.push({
-          name: 'about',
-          params: {data: response}
-        })
-      })
-    })
+    socket.emit("require_stock", input.value)
   }
 }
+
+socket.on('response_stock', (response) => {
+  console.log(response)
+  //页面跳转
+  router.push({
+    name: 'about',
+    query: {data: response}
+  })
+})
+
 </script>
 

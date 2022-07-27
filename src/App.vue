@@ -1,14 +1,29 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view v-if="RouterState"/>
   </div>
 </template>
 <script>
 
 export default {
   name: 'App',
-  setup(){
-    // this.$socket.on("connect")
+  data(){
+    return{
+      RouterState:true
+    }
+  },
+  provide(){
+    return{
+      reload:this.reload
+    }
+  },
+  methods:{
+    reload(){
+      this.RouterState = false
+      this.$nextTick(()=>{
+        this.RouterState = true
+      })
+    }
   },
   components: {
   }

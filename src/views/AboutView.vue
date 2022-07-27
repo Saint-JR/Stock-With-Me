@@ -2,13 +2,22 @@
   <div class="common-layout" style="height: 100%;width: 100%;position: absolute;">
     <el-container class="container-nav">
       <el-header class="header-nav" height="80px">
-        <img src="../assets/logo.svg" alt="logo" class="logo">
+        <img src="../assets/logo.svg" alt="logo" class="logo" @click="gotohome">
         <div class="search">
-          <component :is="SearchInPut"/>
+          <div style="height: 60px;box-shadow: 0 0 10px 5px rgba(0,0,0,0.1);border-radius: 30px;
+	transition: all .5s;overflow: hidden;" @mouseenter="enter"
+               @mouseleave="leave" :style="{'width':width+'px'}">
+            <div style="width: 50px;height: 50px;background-color: #efc21a;border-radius: 25px;
+		display: flex;justify-content: center;align-items: center;position: absolute;top: 5px;left: 5px;">
+              <el-icon size=30><Search /></el-icon>
+            </div>
+            <input style="width: 200px;height: 50px;position: absolute;top: 5px;left:70px ;
+		font-size: 25px;border: none;outline: none;" placeholder="Please input..." v-if="isExisted" v-model="msg" @keydown="ischange" @keyup.enter="send"/>
+          </div>
         </div>
         <el-popover
             placement="bottom"
-            title="Click"
+            title="Finance chat robot"
             :width="200"
             trigger="hover"
             content="You can talk with us to evaluate your risk"
@@ -25,10 +34,11 @@
         <!-- title -->
         <el-row justify="center">
           <div style="width: 60%;">
-            <p>We analyze recent important news about chose stock</p>
-            <p>There are results of sentiment analysis </p>
+            <h1>Stock With Me, Stock Together</h1>
+            <h3>An Intelligent Stock Selecting Assistant</h3>
           </div>
         </el-row>
+        <h1>Related News Sentiment Analysis</h1>
         <el-row justify="center">
           <!-- process -->
           <div class="analyze">
@@ -54,25 +64,19 @@
         </el-row>
         <!-- world crowd-->
         <el-row justify="center">
-          <div>word cloud</div>
-        </el-row>
-        <el-row justify="center">
-          <div style="height: 300px; width: auto;">
-            <img :src="'data:;base64,'+ data.wordcloud" style="height: 300px; width: auto">
+          <div style="width: 60%"><h1>Word Cloud</h1></div>
+          <div style="height: 600px; width: auto;">
+            <img :src="'data:;base64,'+ data.wordcloud" style="height: 600px; width: auto">
           </div>
-        </el-row>
         <!-- describe -->
-        <el-row justify="center">
           <div style="width: 60%;">
             <p>We use Web Crawler to obtain current valuable data, and use NLP to analyze sentiment in the data</p>
           </div>
         </el-row>
-        <el-row justify="center">
-          <div>describe</div>
-        </el-row>
         <el-divider />
         <!-- 股票走势 -->
         <el-row justify="center">
+          <h1>Stock Forecast Charts</h1>
           <div class = "stocktrend" style="height:700px ;border: 2px solid red;width: 100%;display: flex;align-items: center;">
             <div style="width: 120px;height: 400px;position: absolute;border-radius: 60px;left: 120px;
 			box-shadow:0 0 20px 10px rgba(0,0,0,0.3);display: flex;flex-direction: column;justify-content: center;
@@ -89,17 +93,27 @@
 
             <div v-if="linear" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column; ">
               <img :src="'data:image/png;base64,'+data.linear_model" style="height: 400px;width: auto; ">
-              <div style="width: 60%;"><p>linear model</p></div>
+              <div style="width: 60%;">
+                <h3>Linear Model</h3>
+                <p>线性模型描述</p>
+                <p>simple is power</p>
+              </div>
             </div>
 
             <div v-if="svm" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column; ">
               <img :src="'data:image/png;base64,'+data.svm_model" style="height: 400px;width: auto; ">
-              <div style="width: 60%;"><p>svm model</p></div>
+              <div style="width: 60%;">
+                <h3>SVM</h3>
+                <p>SVM描述</p>
+              </div>
             </div>
 
             <div v-if="dtm" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;">
               <img :src="'data:image/png;base64,'+data.decisiontree_model" style="height: 400px;width: auto; ">
-              <div style="width: 60%;"><p>decision tree model</p></div>
+              <div style="width: 60%;">
+                <h3>Random Forest Model</h3>
+                <p>随机森林描述</p>
+              </div>
             </div>
 
           </div>
@@ -108,6 +122,7 @@
         <!-- 内容摘要 -->
         <el-row justify="center">
           <div style="width: 60%;"><p>News Share</p>
+            <h1>News Share</h1>
             <p>We have selected a few relevant news articles for you</p>
           </div>
         </el-row>
@@ -125,14 +140,16 @@
 
 <script setup>
 import {useRoute, useRouter} from "vue-router";
-import SearchInPut from '@/components/aboutSearch.vue'
 import NewsList from '@/components/NewsList.vue'
-import {ref} from "vue"
+import {ref, inject} from "vue"
 
 const route = useRoute()
 const router = useRouter()
 
-const data = JSON.parse(route.params.data)
+const parameters = JSON.parse(route.query.data)
+
+let data = parameters
+
 //console.log(data)
 //let seqnum = 0
 let select = ref(20);
@@ -150,6 +167,12 @@ const neutral = Number(String(data.neutral/data.total*100).replace(/^(.*\..{2}).
 
 
 //console.log(data)
+
+function gotohome(){
+  router.push({
+    name:"home"
+  })
+}
 
 function forward(){
   router.push({
@@ -181,9 +204,47 @@ function choose(e){
     // describe = 'decision tree model'
   }
 }
+
+
+// search
+let width=ref(60);
+let isExisted=ref(false);
+let change = false
+let msg = ref('')
+const socket = inject('socket')
+
+socket.on('response_stock', (response) => {
+  console.log(response)
+  //页面跳转
+  data = JSON.parse(response)
+})
+
+function ischange(){
+  if(msg.value!=='') change=true
+  else change=false
+}
+
+function send(){
+  if(change){
+    socket.emit("require_stock", msg.value)
+  }
+}
+
+function enter(){
+  width.value=300;
+  isExisted.value=true;
+}
+
+function leave(){
+  width.value=60;
+  isExisted.value=false;
+}
+
 </script>
 
 <style>
+/*font */
+h1 { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 45px; font-style: italic; font-variant: normal; font-weight: 700; line-height: 45px; } h3 { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 37px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 29.6px; } p { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 30px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 27px; } blockquote { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 36px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 32.4px; } pre { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 28px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 25.2px; }
 
 body{
   margin: 0;

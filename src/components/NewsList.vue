@@ -23,6 +23,7 @@ function href(link){
 </template>
 
 <style scoped>  /* scoped-局部样式 */
+h1 { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 45px; font-style: italic; font-variant: normal; font-weight: 700; line-height: 45px; } h3 { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 37px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 29.6px; } p { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 30px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 27px; } blockquote { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 36px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 32.4px; } pre { font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif; font-size: 28px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 25.2px; }
 .listitem {
   box-sizing: border-box;
   padding: 20px 20px;
