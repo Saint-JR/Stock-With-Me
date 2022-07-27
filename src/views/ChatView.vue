@@ -23,33 +23,48 @@
 				
 				<div v-for="(message,index) in messages" :key="index" style="width: 100%;
 				padding-top: 10px;padding-bottom: 10px;">
-					<div v-if="message.isFromMe" style="position: relative;">
-						<div style="display: flex;justify-content: center;align-items: center;height: 60px;width: 60px;
-						background-color: rgb(230,230,230);border-radius: 30px;position: absolute;right: 20px;top: -5px;">
-							<el-icon size=30><User/></el-icon>
-						</div>
-						<div style="
-						margin-left: 30px;margin-right: 100px;word-wrap:break-word;word-break:normal;
-						display: flex;justify-content: flex-end;">
-							<div style="padding: 10px;background-color:#efc21a ;border-radius: 20px 20px 8px 20px;font-size: 25px;">{{message.text}}</div>
-								
-						</div>
-						
-					</div>
-					<div v-if="!message.isFromMe" style="position: relative;">
-						<div style="display: flex;justify-content: center;align-items: center;height: 60px;width: 60px;
+          <div style="position: relative;">
+            <div style="display: flex;justify-content: center;align-items: center;height: 60px;width: 60px;
 						background-color: rgb(230,230,230);border-radius: 30px;position: absolute;left: 20px;top: -5px;">
-							<el-icon size=30><UserFilled/></el-icon>
-						</div>
-						<div style="
+              <el-icon v-if="!message.isFromMe"  size=30><UserFilled/></el-icon>
+              <el-icon v-if="message.isFromMe" size=30><User/></el-icon>
+            </div>
+            <div style="
 						margin-left: 100px;margin-right: 30px;word-wrap:break-word;word-break:normal;
 						">
-							<div style="padding: 10px;background-color:#efc21a ;border-radius: 20px 20px 20px 8px;font-size: 25px;text-align: left;">
-							{{message.text}}
-							</div>
-								
-						</div>
-					</div>
+              <div style="padding: 10px;background-color:#efc21a ;border-radius: 20px 20px 20px 8px;font-size: 25px;text-align: left;">
+                {{message.text}}
+              </div>
+
+            </div>
+          </div>
+
+<!--					<div v-if="message.isFromMe" style="position: relative;">-->
+<!--						<div style="display: flex;justify-content: center;align-items: center;height: 60px;width: 60px;-->
+<!--						background-color: rgb(230,230,230);border-radius: 30px;position: absolute;right: 20px;top: -5px;">-->
+<!--							<el-icon size=30><User/></el-icon>-->
+<!--						</div>-->
+<!--						<div style="-->
+<!--						margin-left: 30px;margin-right: 100px;word-wrap:break-word;word-break:normal;-->
+<!--						display: flex;justify-content: flex-end;">-->
+<!--							<div style="padding: 10px;background-color:#efc21a ;border-radius: 20px 20px 8px 20px;font-size: 25px;">{{message.text}}</div>-->
+<!--						</div>-->
+
+<!--					</div>-->
+<!--					<div v-if="!message.isFromMe" style="position: relative;">-->
+<!--						<div style="display: flex;justify-content: center;align-items: center;height: 60px;width: 60px;-->
+<!--						background-color: rgb(230,230,230);border-radius: 30px;position: absolute;left: 20px;top: -5px;">-->
+<!--							<el-icon size=30><UserFilled/></el-icon>-->
+<!--						</div>-->
+<!--						<div style="-->
+<!--						margin-left: 100px;margin-right: 30px;word-wrap:break-word;word-break:normal;-->
+<!--						">-->
+<!--							<div style="padding: 10px;background-color:#efc21a ;border-radius: 20px 20px 20px 8px;font-size: 25px;text-align: left;">-->
+<!--							{{message.text}}-->
+<!--							</div>-->
+
+<!--						</div>-->
+<!--					</div>-->
 				</div>
 				
 			</div>
@@ -58,10 +73,10 @@
 				<div style="width: 70%;height: 70px;border-radius: 20px;background-color: #FFFFFF;
 				display: flex;justify-content: center;align-items:center;">
 					<input style="width: 90%;height: 50px;
-					font-size: 30px;border: none;outline: none;"/>
+					font-size: 30px;border: none;outline: none;" v-model="msg"/>
 				</div>
 				<div style="width: 100px;height: 50px;border-radius: 20px;background-color: #efc21a;
-				display: flex;justify-content: center;align-items:center;font-size: 22px;font-weight: 700;">Send</div>
+				display: flex;justify-content: center;align-items:center;font-size: 22px;font-weight: 700;" @click="send">Send</div>
 			</div>
 		</div>
 	</div>
@@ -71,54 +86,30 @@
 </template>
 
 <script setup>
-//没法和后端测
-import {ref} from 'vue'
+import {inject, ref} from 'vue'
 import {useRouter} from "vue-router";
 
+const socket = inject('socket')
 const router = useRouter()
 
-	let messages=ref([
-		{
-			isFromMe:true,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		},
-		{
-			isFromMe:false,
-			text:"111111111111111111111111111111111111111111111111111111111111111111111"
-		}
+const msg = ref('')
+
+let messages=ref([
+  {
+    isFromMe: false,
+    text: "One of the hardest things for any financial planner to come to grips with is a client’s risk tolerance. As an investment planner, \nit is your job to translate subjective feelings into something more objective that can be used to guide the construction of an investment portfolio. Unfortunately, there is \nno standard measurement or method of assessing a client’s risk tolerance. \nA wide variety of descriptive or quantitative questionnaires are available, and you have to choose a method that works best for you.\n"}
   ])
+
+function send(){
+  socket.emit("get_msg", msg.value)
+  messages.value.push({isFromMe: true, text: msg.value})
+  msg.value=''
+}
+
+socket.on("post_msg", (response)=>{
+  messages.value.push({isFromMe: false, text: response})
+})
+
 function forward() {
   //没有状态 vuex 不能 backward 。。。。
   router.push({

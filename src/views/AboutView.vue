@@ -25,8 +25,8 @@
         <!-- title -->
         <el-row justify="center">
           <div style="width: 60%;">
-            We provide you with the chart of this stock in the most recent period.
-            Here we provide the following strategies as your reference.
+            <p>We analyze recent important news about chose stock</p>
+            <p>There are results of sentiment analysis </p>
           </div>
         </el-row>
         <el-row justify="center">
@@ -64,8 +64,7 @@
         <!-- describe -->
         <el-row justify="center">
           <div style="width: 60%;">
-            <p>技术：爬虫+NLP+Doc2Vec+LSTM</p>
-            <p>输出：情感比例图+关键词图</p>
+            <p>We use Web Crawler to obtain current valuable data, and use NLP to analyze sentiment in the data</p>
           </div>
         </el-row>
         <el-row justify="center">
@@ -88,10 +87,21 @@
               </div>
             </div>
 
-            <div style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;">
-              <img :src="'data:image/png;base64,'+myimage" style="height: 600px;width: auto;">
+            <div v-if="linear" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column; ">
+              <img :src="'data:image/png;base64,'+data.linear_model" style="height: 400px;width: auto; ">
+              <div style="width: 60%;"><p>linear model</p></div>
             </div>
-            <div style="width: 60%;"><p>{{describe}}</p></div>
+
+            <div v-if="svm" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column; ">
+              <img :src="'data:image/png;base64,'+data.svm_model" style="height: 400px;width: auto; ">
+              <div style="width: 60%;"><p>svm model</p></div>
+            </div>
+
+            <div v-if="dtm" style="width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;flex-direction: column;">
+              <img :src="'data:image/png;base64,'+data.decisiontree_model" style="height: 400px;width: auto; ">
+              <div style="width: 60%;"><p>decision tree model</p></div>
+            </div>
+
           </div>
         </el-row>
         <el-divider />
@@ -107,7 +117,6 @@
           </div>
         </el-row>
       </el-main>
-      <el-footer>power by Du Wenjie</el-footer>
     </el-container>
   </div>
   <router-view/>
@@ -127,8 +136,12 @@ const data = JSON.parse(route.params.data)
 //console.log(data)
 //let seqnum = 0
 let select = ref(20);
-let describe = ""
-let myimage = ''
+// let describe = ref("")
+// let myimage = ref('')
+
+let linear = ref(true)
+let svm = ref(false)
+let dtm = ref(false)
 
 //progress
 const positive =  Number(String(data.positive/data.total*100).replace(/^(.*\..{2}).*$/,"$1"))
@@ -147,16 +160,25 @@ function forward(){
 function choose(e){
   if(e==1){
     select.value=20;
-    myimage = data.linear_model
-    describe = 'linear model'
+    linear.value=true
+    svm.value=false
+    dtm.value=false
+    //myimage = data.linear_model
+    // describe = 'linear model'
   }else if(e==2){
     select.value=160;
-    myimage = data.svm_model
-    describe = 'svm model'
+    linear.value=false
+    svm.value=true
+    dtm.value=false
+    //myimage = data.svm_model
+    // describe = 'svm model'
   }else {
     select.value = 300;
-    myimage = data.decisiontree_model
-    describe = 'decision tree model'
+    linear.value=false
+    svm.value=false
+    dtm.value=true
+    //myimage = data.decisiontree_model
+    // describe = 'decision tree model'
   }
 }
 </script>

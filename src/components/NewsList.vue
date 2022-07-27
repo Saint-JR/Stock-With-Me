@@ -7,13 +7,17 @@ console.log(props.list)
 
 const data = ref(props.list)
 
+function href(link){
+  window.open(link);
+}
+
 </script>
 
 <template>
   <div class="">
     <div class="listitem" v-for="(item,index) in data" :key="index">
-      <h3 class="listheader">{{ item.title }}</h3>
-      <p class="listcontent">{{ item.context }}</p>
+      <h3 class="listheader" @click="href(item.Link)">{{ item.Title }}</h3>
+      <p class="listcontent">{{ item.RawMessage }}</p>
     </div>
   </div>
 </template>
