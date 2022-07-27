@@ -1,3 +1,4 @@
+<!--duwenjie 2022/7/21-->
 <template>
   <div style="height: 100%;position: absolute;width: 100%;">
     <img src="../assets/aditya-vyas-mHdATQY9fIU-unsplash.jpg" style="position: absolute;width: 100%;height: 100%;left: 0;top: 0;

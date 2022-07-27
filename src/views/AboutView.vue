@@ -1,3 +1,4 @@
+<!--duwenjie 2022/7/22-->
 <template>
   <div class="common-layout" style="height: 100%;width: 100%;position: absolute;">
     <el-container class="container-nav">
@@ -95,7 +96,7 @@
               <img :src="'data:image/png;base64,'+data.linear_model" style="height: 400px;width: auto; ">
               <div style="width: 60%;">
                 <h3>Linear Model</h3>
-                <p>线性模型描述</p>
+                <p>linear regression,a very simple method to predict stocks</p>
                 <p>simple is power</p>
               </div>
             </div>
@@ -104,7 +105,7 @@
               <img :src="'data:image/png;base64,'+data.svm_model" style="height: 400px;width: auto; ">
               <div style="width: 60%;">
                 <h3>SVM</h3>
-                <p>SVM描述</p>
+                <p>SVR is also a kind of supervised learning which if useful in regression. This method construct a hyperplane or set of hyperplanes in a high- or infinite-dimensional space, which can be used for regression</p>
               </div>
             </div>
 
@@ -112,7 +113,7 @@
               <img :src="'data:image/png;base64,'+data.decisiontree_model" style="height: 400px;width: auto; ">
               <div style="width: 60%;">
                 <h3>Random Forest Model</h3>
-                <p>随机森林描述</p>
+                <p>Random Forest algorithm combines ensemble learning methods with the Decision Tree framework to create multiple randomly drawn Decision Trees from the data, averaging the results to output a new result that often leads to strong predictions</p>
               </div>
             </div>
 
@@ -121,7 +122,7 @@
         <el-divider />
         <!-- 内容摘要 -->
         <el-row justify="center">
-          <div style="width: 60%;"><p>News Share</p>
+          <div style="width: 60%;">
             <h1>News Share</h1>
             <p>We have selected a few relevant news articles for you</p>
           </div>
