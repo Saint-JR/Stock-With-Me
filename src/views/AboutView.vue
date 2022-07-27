@@ -83,7 +83,7 @@
               <div style="width: 120px;height: 310px;display: flex;flex-direction: column;justify-content:space-between;position: absolute;">
                 <div style="font-size: 22px;font-weight: 700;cursor: pointer;" @click="choose(1)">LM</div>
                 <div style="font-size: 22px;font-weight: 700;cursor: pointer;" @click="choose(2)">SVM</div>
-                <div style="font-size: 22px;font-weight: 700;cursor: pointer;" @click="choose(3)">DTM</div>
+                <div style="font-size: 22px;font-weight: 700;cursor: pointer;" @click="choose(3)">RFM</div>
               </div>
             </div>
 

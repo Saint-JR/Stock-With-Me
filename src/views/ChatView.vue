@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-import {inject, ref} from 'vue'
+import {inject, onMounted, ref} from 'vue'
 import {useRouter} from "vue-router";
 
 const socket = inject('socket')
@@ -96,10 +96,11 @@ const router = useRouter()
 const msg = ref('')
 let change = false
 
+
 let messages=ref([
   {
     isFromMe: false,
-    text: "One of the hardest things for any financial planner to come to grips with is a client’s risk tolerance. As an investment planner, \nit is your job to translate subjective feelings into something more objective that can be used to guide the construction of an investment portfolio. Unfortunately, there is \nno standard measurement or method of assessing a client’s risk tolerance. \nA wide variety of descriptive or quantitative questionnaires are available, and you have to choose a method that works best for you.\n"}
+    text: "Hello, I'm a robot. You can tell something with me. And if you want to assess your risk tolerance in finance, please input \"assessment\"."}
   ])
 
 function ischange(){
@@ -117,7 +118,12 @@ function send(){
   }
 }
 
+function reset(){
+  socket.emit("get_msg", "hello")
+}
+
 socket.on("post_msg", (response)=>{
+  console.log(response)
   messages.value.push({isFromMe: false, text: response})
 })
 
@@ -128,6 +134,9 @@ function forward() {
   })
 }
 
+onMounted(()=>{
+  reset()
+})
 
 </script>
 
