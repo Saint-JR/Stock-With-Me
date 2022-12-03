@@ -1,4 +1,4 @@
-# demo
+# Stock-With-Me
 
 ## Project setup
 ```
